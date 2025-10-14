@@ -133,7 +133,7 @@ export default function ProductsPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredProducts.map((product) => (
-                  <tr key={product.id} data-testid={`product-row-${product.id}`}>
+                  <tr key={product.id} data-testid={`product-row-${product.sku}`}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {product.sku}
                     </td>
