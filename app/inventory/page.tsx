@@ -98,7 +98,7 @@ export default function InventoryPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((product) => (
-                  <tr key={product.id} data-testid={`inventory-row-${product.id}`}>
+                  <tr key={product.id} data-testid={`inventory-row-${product.sku}`}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {product.sku}
                     </td>
@@ -130,7 +130,7 @@ export default function InventoryPage() {
                       <button
                         onClick={() => setAdjustModal({ product, adjustment: '' })}
                         className="text-blue-600 hover:text-blue-900"
-                        data-testid={`adjust-stock-${product.id}`}
+                        data-testid={`adjust-stock-${product.sku}`}
                       >
                         Adjust Stock
                       </button>

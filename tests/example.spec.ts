@@ -1,3 +1,4 @@
+
 import { test, expect } from '@playwright/test'
 import { LoginPage } from '../pages/login.page'
 
@@ -16,7 +17,7 @@ test.describe('Login Functionality - Example Test', () => {
     await loginPage.login('admin@test.com', 'Admin123!')
 
     // Verify successful login by checking navigation to dashboard
-    await page.waitForURL('/dashboard')
+    await page.waitForURL('http://localhost:3000/dashboard')
     await expect(page.getByTestId('dashboard-title')).toContainText('Dashboard')
   })
 
