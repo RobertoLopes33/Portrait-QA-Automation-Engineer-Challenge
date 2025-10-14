@@ -6,7 +6,9 @@ import { Page } from '@playwright/test'
  */
 export async function resetApplicationData(page: Page) {
   // Call the reset API endpoint
-  await page.request.post('/api/reset')
+  await page.request.post('http://localhost:3000/api/reset')
+
+  await page.goto('http://localhost:3000/login')
 
   // Clear localStorage to reset client-side data
   await page.evaluate(() => {
@@ -21,22 +23,22 @@ export async function resetApplicationData(page: Page) {
  * Login helper for quick authentication in tests
  */
 export async function loginAsAdmin(page: Page) {
-  await page.goto('/login')
+  await page.goto('http://localhost:3000/login')
   await page.getByTestId('email-input').fill('admin@test.com')
   await page.getByTestId('password-input').fill('Admin123!')
   await page.getByTestId('login-button').click()
-  await page.waitForURL('/dashboard')
+  await page.waitForURL('http://localhost:3000/dashboard')
 }
 
 /**
  * Login helper for regular user
  */
 export async function loginAsUser(page: Page) {
-  await page.goto('/login')
+  await page.goto('http://localhost:3000/login')
   await page.getByTestId('email-input').fill('user@test.com')
   await page.getByTestId('password-input').fill('User123!')
   await page.getByTestId('login-button').click()
-  await page.waitForURL('/dashboard')
+  await page.waitForURL('http://localhost:3000/dashboard')
 }
 
 /**
