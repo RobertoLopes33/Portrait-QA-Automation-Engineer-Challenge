@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test'
+import { LoginPage } from '../../pages/login.page'
 
 /**
  * Reset application data to default state
@@ -23,22 +24,16 @@ export async function resetApplicationData(page: Page) {
  * Login helper for quick authentication in tests
  */
 export async function loginAsAdmin(page: Page) {
-  await page.goto('http://localhost:3000/login')
-  await page.getByTestId('email-input').fill('admin@test.com')
-  await page.getByTestId('password-input').fill('Admin123!')
-  await page.getByTestId('login-button').click()
-  await page.waitForURL('http://localhost:3000/dashboard')
+  const loginPage = new LoginPage(page)
+  await loginPage.loginAsAdmin()
 }
 
 /**
  * Login helper for regular user
  */
 export async function loginAsUser(page: Page) {
-  await page.goto('http://localhost:3000/login')
-  await page.getByTestId('email-input').fill('user@test.com')
-  await page.getByTestId('password-input').fill('User123!')
-  await page.getByTestId('login-button').click()
-  await page.waitForURL('http://localhost:3000/dashboard')
+  const loginPage = new LoginPage(page)
+  await loginPage.loginAsUser()
 }
 
 /**
