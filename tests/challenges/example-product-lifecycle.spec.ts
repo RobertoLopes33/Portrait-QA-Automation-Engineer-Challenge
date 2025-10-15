@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { LoginPage } from '../../pages/login.page'
-import { resetApplicationData, loginAsAdmin, generateTestProduct } from '../helpers/test-helpers'
+import { resetApplicationData, loginAsAdmin, generateTestProduct, waitForElement } from '../helpers/test-helpers'
 import testData from '../../data/test-products.json'
 
 /**
@@ -59,7 +59,7 @@ test.describe('Product Lifecycle - Example', () => {
     // Step 3: Edit the product
     await test.step('Edit product details', async () => {
       // Find the product ID from the edit button's href
-      const editButton = page.locator(`[data-testid^="edit-product-"]`).first()
+      const editButton = page.getByTestId(`edit-product-${testProduct.sku}`)
       await editButton.click()
 
       // Update product details
@@ -99,7 +99,7 @@ test.describe('Product Lifecycle - Example', () => {
       await page.getByTestId('search-input').fill(testProduct.name)
 
       // Delete it
-      const deleteButton = page.locator(`[data-testid^="delete-product-"]`).first()
+      const deleteButton = page.getByTestId(`delete-product-${testProduct.sku}`)
       await deleteButton.click()
 
       // Confirm deletion in modal
@@ -130,6 +130,7 @@ test.describe('Product Lifecycle - Example', () => {
     await test.step('Verify low stock indicators', async () => {
       // Check products page
       await page.goto('http://localhost:3000/products')
+      await page.getByTestId('product-row-LOW-STOCK-001').waitFor({ state: 'visible' })
       await page.getByTestId('search-input').fill('Low Stock Product')
 
       const stockBadge = page.getByTestId('product-row-LOW-STOCK-001')
@@ -146,6 +147,7 @@ test.describe('Product Lifecycle - Example', () => {
     for (const product of testData.validProducts) {
       await test.step(`Create product: ${product.name}`, async () => {
         await page.goto('http://localhost:3000/products/new')
+        await page.getByTestId('sku-input').waitFor({ state: 'visible' })
 
         await page.getByTestId('sku-input').fill(product.sku)
         await page.getByTestId('name-input').fill(product.name)
