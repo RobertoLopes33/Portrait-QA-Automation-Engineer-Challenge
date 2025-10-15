@@ -159,14 +159,14 @@ export default function ProductsPage() {
                       <Link
                         href={`/products/${product.id}`}
                         className="text-blue-600 hover:text-blue-900 mr-3"
-                        data-testid={`edit-product-${product.id}`}
+                        data-testid={`edit-product-${product.sku}`}
                       >
                         Edit
                       </Link>
                       <button
                         onClick={() => setShowDeleteModal(product.id)}
                         className="text-red-600 hover:text-red-900"
-                        data-testid={`delete-product-${product.id}`}
+                        data-testid={`delete-product-${product.sku}`}
                       >
                         Delete
                       </button>
