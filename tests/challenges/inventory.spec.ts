@@ -190,4 +190,24 @@ test.describe('Invetory [Inventory]', async () => {
             }
         })
     })
+
+    test('Negative - Set product stock below 0', async ({ page }) => {
+        const inventoryPage = new InventoryPage(page)
+        let productTest: {sku: String}
+
+        await test.step('Create new product', async () => {
+            const productsPage = new ProductsPage(page)
+            await productsPage.goto()
+            productTest = await productsPage.createNewProduct()
+        })
+
+        await test.step('Try to set stock below 0', async () => {
+            await inventoryPage.goto()
+            await inventoryPage.clickOnAdjustStock(productTest.sku)
+            await inventoryPage.adjustmentInput.fill('-100')
+            await inventoryPage.btnConfirmAdjust.click()
+            await expect(inventoryPage.page.getByTestId('adjustment-error')).toBeVisible()
+            await expect(inventoryPage.page.getByTestId('adjustment-error')).toHaveText('Stock cannot be negative')
+        })
+    })
 })
