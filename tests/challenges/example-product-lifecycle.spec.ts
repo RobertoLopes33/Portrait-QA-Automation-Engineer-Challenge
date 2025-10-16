@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test'
-import { LoginPage } from '../../pages/login.page'
+import { test, expect } from '../fixtures/base'
 import { resetApplicationData, loginAsAdmin, generateTestProduct, waitForElement } from '../helpers/test-helpers'
 import testData from '../../data/test-products.json'
 
@@ -10,14 +9,6 @@ import testData from '../../data/test-products.json'
  */
 
 test.describe('Product Lifecycle - Example', () => {
-  test.beforeEach(async ({ page }) => {
-    // Reset data before each test for isolation
-    await resetApplicationData(page)
-
-    // Login as admin for product management
-    await loginAsAdmin(page)
-  })
-
   test('Complete product lifecycle: Create → Edit → Adjust Stock → Delete', async ({ page }) => {
     // Generate unique test data
     const testProduct = generateTestProduct()
@@ -130,7 +121,7 @@ test.describe('Product Lifecycle - Example', () => {
     await test.step('Verify low stock indicators', async () => {
       // Check products page
       await page.goto('http://localhost:3000/products')
-      await page.getByTestId('product-row-LOW-STOCK-001').waitFor({ state: 'visible' })
+      await page.waitForLoadState('networkidle')
       await page.getByTestId('search-input').fill('Low Stock Product')
 
       const stockBadge = page.getByTestId('product-row-LOW-STOCK-001')
@@ -172,8 +163,6 @@ test.describe('Product Lifecycle - Example', () => {
 
 test.describe('Form Validation - Negative Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await resetApplicationData(page)
-    await loginAsAdmin(page)
     await page.goto('http://localhost:3000/products/new')
   })
 

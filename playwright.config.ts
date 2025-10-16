@@ -1,7 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
 import * as dotenv from 'dotenv'
+import path from 'path'
 
 dotenv.config();
+const authFile = path.join(__dirname, '.auth/user.json')
 
 export default defineConfig({
   testDir: './tests',
@@ -18,8 +20,16 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'setup',
+      testMatch: 'tests/fixtures/auth.spec.ts',
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
     },
   ],
 

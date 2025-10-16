@@ -99,16 +99,16 @@ export default function InventoryPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((product) => (
                   <tr key={product.id} data-testid={`inventory-row-${product.sku}`}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" data-testid={`product-sku-${product.sku}`}>
                       {product.sku}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-testid={`product-name-${product.sku}`}>
                       {product.name}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-testid={`product-stock-${product.sku}`}>
                       {product.stock}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap" data-testid={`product-status-${product.sku}`}>
                       {product.stock <= product.lowStockThreshold ? (
                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800" data-testid={`low-stock-badge-${product.id}`}>
                           Low Stock
@@ -123,10 +123,10 @@ export default function InventoryPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-testid={`product-updatedAt-${product.sku}`}>
                       {new Date(product.updatedAt).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium" data-testid={`product-actions-${product.sku}`}>
                       <button
                         onClick={() => setAdjustModal({ product, adjustment: '' })}
                         className="text-blue-600 hover:text-blue-900"

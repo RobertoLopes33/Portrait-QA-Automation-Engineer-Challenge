@@ -1,10 +1,11 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures/base'
 import { resetApplicationData } from '../helpers/test-helpers'
 import { LoginPage } from '../../pages/login.page'
 import { DashboardPage } from '../../pages/dashboard.page'
 
 test.describe('Authentication [auth]', () => {
     test.beforeEach(async ({ page }) => {
+        // Ensure there is no localStorage data when these tests of authentication are running
         await resetApplicationData(page)
     })
 

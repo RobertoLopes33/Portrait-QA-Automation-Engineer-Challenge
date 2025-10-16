@@ -1,16 +1,9 @@
-import { Page, test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures/base'
 import { InventoryPage } from '../../pages/inventory.page'
 import { ProductsPage } from '../../pages/products.page'
-import { resetApplicationData, loginAsAdmin } from '../helpers/test-helpers'
 import { products } from '../../data/products.json'
 
 test.describe('Invetory [Inventory]', async () => {
-    test.beforeEach(async ({ page }) => {
-        await resetApplicationData(page)
-
-        await loginAsAdmin(page)
-    })
-
     test('Increase stock level', async ({ page }) => {
         let productTest: {sku: String}
         let productTestStock: String

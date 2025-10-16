@@ -1,13 +1,7 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures/base'
 import { ProductsPage } from '../../pages/products.page'
-import { resetApplicationData, loginAsAdmin } from '../helpers/test-helpers'
 
 test.describe('Products [Products]', async () => {
-    test.beforeEach(async ({ page }) => {
-        await resetApplicationData(page)
-
-        await loginAsAdmin(page)
-    })
 
     test('Validate products page components', async ({ page }) => {
         const productsPage = new ProductsPage(page)
