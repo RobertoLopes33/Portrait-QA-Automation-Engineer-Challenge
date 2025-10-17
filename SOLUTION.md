@@ -64,14 +64,14 @@ npm install
 - USER_EMAIL
 - USER_PASSWORD
 
-4. **Run the setup project**:
+4. **Run the setup project to generate authentication state**:
 ```bash
 npm run setup:auth
 ```
 
 ⚠️ **Note**: The setup project must be run before running the test suite.
 
-5. **Run the test suite to generate authentication state**:
+5. **Run the test suite**:
 ```bash
 npm test
 ```
@@ -99,7 +99,6 @@ Testing priorities are aligned to best pratices on testing and risk-based covera
 - Authentication state lost during tests
 - Environment setup inconsistency across users
 - Test flakiness from timing issues
--
 
 ### Solutions
 
